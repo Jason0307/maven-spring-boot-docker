@@ -90,73 +90,62 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			<!-- <plugin>
-				<groupId>com.spotify</groupId>
-				<artifactId>docker-maven-plugin</artifactId>
-				<version>0.3.7</version>
-				<configuration>
-					<imageName>jason/${project.artifactId}</imageName>
-					<dockerDirectory>src/main/docker</dockerDirectory>
-					<resources>
-						<resource>
-							<directory>${project.build.directory}</directory>
-							<include>${project.build.finalName}.jar</include>
-						</resource>
-					</resources>
-				</configuration>
-			</plugin> -->
 			<plugin>
-        <groupId>io.fabric8</groupId>
-        <artifactId>docker-maven-plugin</artifactId>
-        <version>0.15.3</version>
-        <extensions>true</extensions> <!-- enables using 'docker' packaging above -->
-        <configuration>
-          <dockerHost>https://192.168.99.100:2376</dockerHost>
-          <watchInterval>500</watchInterval>
-          <logDate>default</logDate>
-          <verbose>true</verbose>
-          <useColor>true</useColor>
-          <autoPull>always</autoPull>
-          <watchPostGoal>org.apache.maven.plugins:maven-help-plugin:help</watchPostGoal>
-          <images>
-            <!-- Docker Image to use -->
-            <image>
-              <!-- App-Server Image -->
-              <alias>single-dog</alias>
-              <name>jason/${project.artifactId}</name>
-              <build>
-              <dockerFile>Dockerfile</dockerFile>
-              
-              <assembly>
-                <descriptor>${basedir}/src/main/docker/assembly.xml</descriptor>
-              </assembly>
-       		  </build>
-              <run>
-                <namingStrategy>none</namingStrategy>
-                <ports>
-                  <port>8787:8787</port>
-                </ports>
-                <log>
-                  <enabled>true</enabled>
-                  <color>red</color>
-                </log>
-              </run>
-              <watch>
-                <interval>5000</interval>
-                <mode>both</mode>
-              </watch>
-            </image>
-          </images>
-        </configuration>
-      </plugin>
-      <plugin>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <configuration>
-          <descriptors>
-            <descriptor>src/main/docker/assembly.xml</descriptor>
-          </descriptors>
-        </configuration>
-      </plugin>
+				<groupId>io.fabric8</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>0.15.3</version>
+				<extensions>true</extensions> <!-- enables using 'docker' packaging above -->
+				<configuration>
+					<dockerHost>https://192.168.99.100:2376</dockerHost>
+					<watchInterval>500</watchInterval>
+					<logDate>default</logDate>
+					<verbose>true</verbose>
+					<useColor>true</useColor>
+					<autoPull>always</autoPull>
+					<watchPostGoal>org.apache.maven.plugins:maven-help-plugin:help</watchPostGoal>
+					<images>
+						<!-- Docker Image to use -->
+						<image>
+							<!-- App-Server Image -->
+							<alias>single-dog</alias>
+							<name>jason/${project.artifactId}</name>
+							<build>
+								<dockerFile>Dockerfile</dockerFile>
+
+								<assembly>
+									<descriptor>${basedir}/src/main/docker/assembly.xml</descriptor>
+								</assembly>
+							</build>
+							<run>
+								<namingStrategy>none</namingStrategy>
+								<ports>
+									<port>8787:8787</port>
+								</ports>
+								<log>
+									<enabled>true</enabled>
+									<color>red</color>
+								</log>
+							</run>
+							<watch>
+								<interval>5000</interval>
+								<mode>both</mode>
+							</watch>
+						</image>
+					</images>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<descriptors>
+						<descriptor>src/main/docker/assembly.xml</descriptor>
+					</descriptors>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-help-plugin</artifactId>
+			</plugin>
 		</plugins>
 	</build>
 </project>
