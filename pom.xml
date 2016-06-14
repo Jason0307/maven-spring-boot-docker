@@ -101,7 +101,7 @@
 					<logDate>default</logDate>
 					<verbose>true</verbose>
 					<useColor>true</useColor>
-					<autoPull>always</autoPull>
+					<autoPull>on</autoPull>
 					<watchPostGoal>org.apache.maven.plugins:maven-help-plugin:help</watchPostGoal>
 					<images>
 						<image>
@@ -115,6 +115,11 @@
 								<ports>
 									<port>80:80</port>
 								</ports>
+								<volumes>
+									<bind>
+										<volume>/etc</volume>
+									</bind>
+								</volumes>
 								<log>
 									<enabled>true</enabled>
 									<color>red</color>
@@ -139,6 +144,11 @@
 								<ports>
 									<port>8080:8080</port>
 								</ports>
+								<volumes>
+									<from>
+										<image>jason/nginx</image>
+									</from>
+								</volumes>
 								<log>
 									<enabled>true</enabled>
 									<color>red</color>

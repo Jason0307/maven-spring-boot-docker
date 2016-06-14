@@ -43,11 +43,15 @@ public class MainController {
 		item3.setId(3);
 		item3.setName("Tomato");
 		item3.setDescription("This is tomato");
+		Item item4 = new Item();
+		item4.setUserId(4);
+		item4.setId(4);
+		item4.setName("Peat");
+		item4.setDescription("This is peat");
 		
 		items.add(item);
 		items.add(item2);
 		items.add(item3);
-		
 		return items;
 	}
 	
