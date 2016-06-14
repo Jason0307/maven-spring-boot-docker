@@ -38,8 +38,15 @@ public class MainController {
 		item2.setName("Blalala");
 		item2.setDescription("This is blalala");
 		
+		Item item3 = new Item();
+		item3.setUserId(3);
+		item3.setId(3);
+		item3.setName("Tomato");
+		item3.setDescription("This is tomato");
+		
 		items.add(item);
 		items.add(item2);
+		items.add(item3);
 		
 		return items;
 	}

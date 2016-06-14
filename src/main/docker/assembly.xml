@@ -5,7 +5,7 @@
 	<fileSets>
 		<fileSet>
 			<directory>${basedir}/target</directory>
-			<outputDirectory>.</outputDirectory>
+			<outputDirectory>src/main/docker</outputDirectory>
 			<includes>
 				<include>*.jar</include>
 			</includes>

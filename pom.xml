@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.zhubao</groupId>
-	<artifactId>single-dog</artifactId>
+	<artifactId>jason-docker</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
@@ -90,73 +90,68 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			<!-- <plugin>
-				<groupId>com.spotify</groupId>
-				<artifactId>docker-maven-plugin</artifactId>
-				<version>0.3.7</version>
-				<configuration>
-					<imageName>jason/${project.artifactId}</imageName>
-					<dockerDirectory>src/main/docker</dockerDirectory>
-					<resources>
-						<resource>
-							<directory>${project.build.directory}</directory>
-							<include>${project.build.finalName}.jar</include>
-						</resource>
-					</resources>
-				</configuration>
-			</plugin> -->
 			<plugin>
-        <groupId>io.fabric8</groupId>
-        <artifactId>docker-maven-plugin</artifactId>
-        <version>0.15.3</version>
-        <extensions>true</extensions> <!-- enables using 'docker' packaging above -->
-        <configuration>
-          <dockerHost>https://192.168.99.100:2376</dockerHost>
-          <watchInterval>500</watchInterval>
-          <logDate>default</logDate>
-          <verbose>true</verbose>
-          <useColor>true</useColor>
-          <autoPull>always</autoPull>
-          <watchPostGoal>org.apache.maven.plugins:maven-help-plugin:help</watchPostGoal>
-          <images>
-            <!-- Docker Image to use -->
-            <image>
-              <!-- App-Server Image -->
-              <alias>single-dog</alias>
-              <name>jason/${project.artifactId}</name>
-              <build>
-              <dockerFile>Dockerfile</dockerFile>
-              
-              <assembly>
-                <descriptor>${basedir}/src/main/docker/assembly.xml</descriptor>
-              </assembly>
-       		  </build>
-              <run>
-                <namingStrategy>none</namingStrategy>
-                <ports>
-                  <port>8787:8787</port>
-                </ports>
-                <log>
-                  <enabled>true</enabled>
-                  <color>red</color>
-                </log>
-              </run>
-              <watch>
-                <interval>5000</interval>
-                <mode>both</mode>
-              </watch>
-            </image>
-          </images>
-        </configuration>
-      </plugin>
-      <plugin>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <configuration>
-          <descriptors>
-            <descriptor>src/main/docker/assembly.xml</descriptor>
-          </descriptors>
-        </configuration>
-      </plugin>
+				<groupId>io.fabric8</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>0.15.7</version>
+				<extensions>true</extensions> <!-- enables using 'docker' packaging above -->
+				<configuration>
+					<dockerHost>https://192.168.99.100:2376</dockerHost>
+					<watchInterval>500</watchInterval>
+					<logDate>default</logDate>
+					<verbose>true</verbose>
+					<useColor>true</useColor>
+					<autoPull>always</autoPull>
+					<watchPostGoal>org.apache.maven.plugins:maven-help-plugin:help</watchPostGoal>
+					<images>
+						<image>
+							<alias>jason-nginx</alias>
+							<name>jason/nginx</name>
+							<build>
+								<dockerFileDir>nginx</dockerFileDir>
+							</build>
+							<run>
+								<namingStrategy>none</namingStrategy>
+								<ports>
+									<port>80:80</port>
+								</ports>
+								<log>
+									<enabled>true</enabled>
+									<color>red</color>
+								</log>
+							</run>
+							<watch>
+								<interval>5000</interval>
+								<mode>both</mode>
+							</watch>
+						</image>
+						<image>
+							<alias>jason-docker</alias>
+							<name>jason/${project.artifactId}</name>
+							<build>
+								<dockerFileDir>app</dockerFileDir>
+								<assembly>
+									<descriptor>assembly.xml</descriptor>
+								</assembly>
+							</build>
+							<run>
+								<namingStrategy>none</namingStrategy>
+								<ports>
+									<port>8080:8080</port>
+								</ports>
+								<log>
+									<enabled>true</enabled>
+									<color>red</color>
+								</log>
+							</run>
+							<watch>
+								<interval>5000</interval>
+								<mode>both</mode>
+							</watch>
+						</image>
+					</images>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 </project>
