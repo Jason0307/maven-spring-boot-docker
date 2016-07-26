@@ -6,11 +6,13 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.Import;
 
 import com.zhubao.docker.datasource.DynamicDataSourceRegister;
 
 @SpringBootApplication
+@ServletComponentScan
 @Import(DynamicDataSourceRegister.class)
 public class DockerServiceApplication {
 
