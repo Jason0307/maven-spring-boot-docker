@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.zhubao</groupId>
-	<artifactId>single-dog</artifactId>
+	<artifactId>jason-docker</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
@@ -108,17 +108,40 @@
 					<autoPull>on</autoPull>
 					<watchPostGoal>org.apache.maven.plugins:maven-help-plugin:help</watchPostGoal>
 					<images>
-						<!-- Docker Image to use -->
 						<image>
-							<!-- App-Server Image -->
-							<alias>single-dog</alias>
+							<alias>jason-nginx</alias>
+							<name>jason/nginx</name>
+							<build>
+								<dockerFileDir>nginx</dockerFileDir>
+							</build>
+							<run>
+								<namingStrategy>none</namingStrategy>
+								<ports>
+									<port>80:80</port>
+								</ports>
+								<volumes>
+									<bind>
+										<volume>/etc</volume>
+									</bind>
+								</volumes>
+								<log>
+									<enabled>true</enabled>
+									<color>red</color>
+								</log>
+							</run>
+							<watch>
+								<interval>5000</interval>
+								<mode>both</mode>
+							</watch>
+						</image>
+						<image>
+							<alias>jason-docker</alias>
 							<name>jason/${project.artifactId}</name>
 							<build>
-
-								<dockerFile>Dockerfile</dockerFile>
+								<dockerFileDir>app</dockerFileDir>
 								<assembly>
-									<mode>dir</mode>
-									<descriptor>${basedir}/src/main/docker/assembly.xml</descriptor>
+									<descriptor>assembly.xml</descriptor>
+
 								</assembly>
 								<args>
 									<boot_jar>maven/${project.artifactId}-${project.version}.jar</boot_jar>
@@ -127,8 +150,13 @@
 							<run>
 								<namingStrategy>none</namingStrategy>
 								<ports>
-									<port>8787:8787</port>
+									<port>8080:8080</port>
 								</ports>
+								<volumes>
+									<from>
+										<image>jason/nginx</image>
+									</from>
+								</volumes>
 								<log>
 									<enabled>true</enabled>
 									<color>red</color>
@@ -140,13 +168,6 @@
 							</watch>
 						</image>
 					</images>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-help-plugin</artifactId>
-				<configuration>
-					<output>${basedir}</output>
 				</configuration>
 			</plugin>
 		</plugins>

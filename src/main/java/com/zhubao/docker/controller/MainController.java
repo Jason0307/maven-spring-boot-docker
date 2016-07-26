@@ -38,5 +38,4 @@ public class MainController {
 		Iterable<Item> items = itemService.findAllItems();
 		return items;
 	}
-	
 }
