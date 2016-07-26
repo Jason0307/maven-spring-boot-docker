@@ -1,11 +1,25 @@
 package com.zhubao.docker.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Item")
 public class Item {
 
+	@Id
+	@GeneratedValue
 	private int id;
 	private String name;
 	private String description;
-	private int userId;
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
+	
 	public int getId() {
 		return id;
 	}
@@ -24,11 +38,11 @@ public class Item {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public int getUserId() {
-		return userId;
+	public User getUser() {
+		return user;
 	}
-	public void setUserId(int userId) {
-		this.userId = userId;
+	public void setUser(User user) {
+		this.user = user;
 	}
 	
 }

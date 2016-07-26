@@ -1,5 +1,6 @@
 FROM java:8
+ARG boot_jar
 VOLUME /tmp
-ADD maven/single-dog-0.0.1-SNAPSHOT.jar app.jar
+ADD ${boot_jar} app.jar
 RUN bash -c 'touch /app.jar'
 ENTRYPOINT ["java","-jar","app.jar"]

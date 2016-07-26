@@ -27,6 +27,10 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 		<dependency>
@@ -93,7 +97,7 @@
 			<plugin>
 				<groupId>io.fabric8</groupId>
 				<artifactId>docker-maven-plugin</artifactId>
-				<version>0.15.3</version>
+				<version>0.15.7</version>
 				<extensions>true</extensions> <!-- enables using 'docker' packaging above -->
 				<configuration>
 					<dockerHost>https://192.168.99.100:2376</dockerHost>
@@ -101,7 +105,7 @@
 					<logDate>default</logDate>
 					<verbose>true</verbose>
 					<useColor>true</useColor>
-					<autoPull>always</autoPull>
+					<autoPull>on</autoPull>
 					<watchPostGoal>org.apache.maven.plugins:maven-help-plugin:help</watchPostGoal>
 					<images>
 						<!-- Docker Image to use -->
@@ -110,11 +114,15 @@
 							<alias>single-dog</alias>
 							<name>jason/${project.artifactId}</name>
 							<build>
-								<dockerFile>Dockerfile</dockerFile>
 
+								<dockerFile>Dockerfile</dockerFile>
 								<assembly>
+									<mode>dir</mode>
 									<descriptor>${basedir}/src/main/docker/assembly.xml</descriptor>
 								</assembly>
+								<args>
+									<boot_jar>maven/${project.artifactId}-${project.version}.jar</boot_jar>
+								</args>
 							</build>
 							<run>
 								<namingStrategy>none</namingStrategy>
@@ -135,16 +143,11 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<configuration>
-					<descriptors>
-						<descriptor>src/main/docker/assembly.xml</descriptor>
-					</descriptors>
-				</configuration>
-			</plugin>
-			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-help-plugin</artifactId>
+				<configuration>
+					<output>${basedir}</output>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

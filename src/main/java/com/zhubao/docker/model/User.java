@@ -1,10 +1,21 @@
 package com.zhubao.docker.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "User")
 public class User {
 
+	@Id
+	@GeneratedValue
 	private long id;
 	private String username;
-	
+	public User() {
+		super();
+	}
 	public User(long id, String username) {
 		super();
 		this.id = id;
