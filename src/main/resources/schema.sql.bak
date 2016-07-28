@@ -1,5 +1,5 @@
-INSERT INTO `platform0`.`user` (`username`) VALUES ('Jason');
-INSERT INTO `platform0`.`user` (`username`) VALUES ('Marco');
+INSERT INTO `user` (`username`) VALUES ('Jason');
+INSERT INTO `user` (`username`) VALUES ('Marco');
 
-INSERT INTO `platform0`.`item` (`description`, `name`, `user_id`) VALUES ('You can use this note book to read it tech.', 'Notebook', 1);
-INSERT INTO `platform0`.`item` (`description`, `name`, `user_id`) VALUES ('It\'s a professional phone in the world!', 'IPhone 7 Plus', 1);
+INSERT INTO `item` (`description`, `name`, `user_id`) VALUES ('You can use this note book to read it tech.', 'Notebook', 1);
+INSERT INTO `item` (`description`, `name`, `user_id`) VALUES ('It\'s a professional phone in the world!', 'IPhone 7 Plus', 1);
